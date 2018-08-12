@@ -1,6 +1,1 @@
 #!/bin/bash -e
-
-cp -Rf /tmp/src/. ./
-
-SRC=/tmp/src
-cp -r $SRC/add-base.cnf /etc/opt/rh/rh-mysql57/my.cnf.d/
