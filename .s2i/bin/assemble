@@ -1,5 +1,9 @@
 #!/bin/bash -e
 
+$file=/etc/opt/rh/rh-mysql57/my.cnf.d/add-base.cnf
 echo "in assemble file "
-echo "[mysqld]" >  /etc/opt/rh/rh-mysql57/my.cnf.d/add-base.cnf
-echo "character-set-server=utf8" >> /etc/opt/rh/rh-mysql57/my.cnf.d/add-base.cnf
+echo "[mysqld]" > $file 
+echo "character-set-server=utf8" >> $file
+echo "" >> $file
+echo "[client]" >> $file
+echo "default-character-set=utf8" >> $file
