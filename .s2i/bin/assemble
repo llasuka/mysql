@@ -2,5 +2,4 @@
 
 echo "in assemble file "
 echo "[mysqld]" >  /etc/opt/rh/rh-mysql57/my.cnf.d/add-base.cnf
-echo "default-character-set=utf8" >> /etc/opt/rh/rh-mysql57/my.cnf.d/add-base.cnf
 echo "character-set-server=utf8" >> /etc/opt/rh/rh-mysql57/my.cnf.d/add-base.cnf
