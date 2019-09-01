@@ -1,16 +1,23 @@
-# S2Iビルドの実行
-mysqlのs2i用のソースコードです。下記のコマンドでOpenShiftのS2iビルドを実行してください。
+# How To USe
+このDockerfileは、下記設定を追加します。
+ 1. confファイルの流し込み（env配下を/etc/mysql/conf.d配下にコピー）
+ 1. 初期設定の流し込み（/docker-entrypoint-initdb.d配下を/docker-entrypoint-initdb.dにコピー）
 
-``` 
-oc new-app registry.access.redhat.com/rhscl/mysql-57-rhel7~https://github.com/llasuka/mysql 
- -e MYSQL_USER=mysql -e MYSQL_PASSWORD=mysql -e MYSQL_ROOT_PASSWORD=mysql 
- -e MYSQL_DATABASE=redmine --name="mysql-utf8" 
+# 文字コードの確認
+conf/custom.cnfに文字コードをUTF8に変更する内容を記述しています。（下記参照)
 ```
+[mysql]
+default-character-set=utf8
 
-コンテナができあがったら、ターミナルからログインし、下記コマンドで結果を確認してください。
+[mysqld]
+character-set-server=utf8
+```
+mysqlは、/etc/mysql/conf.d配下のconfファイルをすべて読み込んで実行するので、文字コードがUTF8に変更される。
+確認方法は下記の通り。
 
 ``` 
->mysql -u root
+>mysql -u root -p 
+Enter password: ******
 >use database redmine
 >show variables like "chara%";
 +--------------------------+--------------------------------------------------------------+
@@ -31,7 +38,7 @@ oc new-app registry.access.redhat.com/rhscl/mysql-57-rhel7~https://github.com/ll
 
 # データベースの永続化
 
-デフォルトではデータベースの永続化が行なわれていないため、GUIで下記パスを永続化する。
+デフォルトではデータベースの永続化が行なわれていないため、Dockerイメージ起動時に下記ディレクトリを永続化すること
 
 `/var/lib/mysql`
 
